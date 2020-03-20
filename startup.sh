@@ -4,3 +4,5 @@
 # @UPDATE: 20200319
 
 create-react-app ${PROJECT}
+cd ${PROJECT}
+npx -p @storybook/cli sb init
