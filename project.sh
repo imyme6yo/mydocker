@@ -3,4 +3,5 @@
 # @DRAFT: 20200319
 
 # run test
+npm install
 ash

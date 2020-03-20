@@ -31,6 +31,4 @@ WORKDIR ${DIR}
 COPY . .
 WORKDIR ${PROJECT}
 
-RUN npm install
-
 EXPOSE 9213
