@@ -1,4 +1,4 @@
-# @AUTHOR: jon "imyme6yo@gmail.com"
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200317
 # @UPDATE: 20200319
 
@@ -34,9 +34,3 @@ WORKDIR ${PROJECT}
 RUN npm install
 
 EXPOSE 9213
-
-#
-# docker build -t vue:$(echo "${PWD##*/}") --build-arg DIR_NAME=$(echo "${PWD##*/}") --build-arg PROJECT_NAME=$(echo "${PWD##*/}") .
-#
-# docker run --rm -it -v $(pwd)/:/$(echo "${PWD##*/}") vue:$(echo "${PWD##*/}") -p ${PORT}:${PORT} ash
-# npm run serve -- --port ${PORT}

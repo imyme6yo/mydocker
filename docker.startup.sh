@@ -11,5 +11,4 @@ docker images | grep myapp | awk '{print $3}'| xargs docker rmi
 # build image
 docker build -t myapp:dev .
 # run container
-docker run --rm -v $(pwd):/code -p 9213:3000  myapp:dev sh /code/startup.sh
-# docker run --rm -it -v $(pwd):/code -p 9213:3000  myapp:dev ash
+docker run --rm -it -v $(pwd):/code -p 9213:3000  myapp:dev sh /code/startup.sh

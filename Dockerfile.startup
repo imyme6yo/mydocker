@@ -31,9 +31,3 @@ RUN npm install -g create-react-app
 RUN mkdir ${DIR}
 # Create Project by Default Settings
 WORKDIR ${DIR}
-COPY . .
-
-# docker build -t vue:$(echo "${PWD##*/}") --build-arg DIR_NAME=$(echo "${PWD##*/}") --build-arg PROJECT_NAME=$(echo "${PWD##*/}") .
-#
-# docker run --rm -it -v $(pwd)/:/$(echo "${PWD##*/}") vue:$(echo "${PWD##*/}") -p ${PORT}:${PORT} ash
-# npm run serve -- --port ${PORT}
