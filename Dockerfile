@@ -1,4 +1,4 @@
-# @AUTHOR: jon "imyme6yo@gmail.com"
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200319
 
 # ARGUMENTs
@@ -8,15 +8,17 @@ ARG ALPINE=3.11
 FROM python:${VER}-alpine${ALPINE}
 
 # LABELs
-LABEL maintainer="jon"
+LABEL maintainer="imyme6yo"
 LABEL email="imyme6yo@gmail.com"
-
-# ENV
-ENV PROJECT=myapp
 
 # ARGUMENTs
 ARG DIR=code
-# ARG REQUIREMENTS=requirements.txt
+ARG PROJECT=myapp
+
+# ENV
+ENV PROJECT=${PROJECT}
+
+
 
 # Install Alpine Packages
 RUN apk update && apk upgrade
@@ -28,8 +30,3 @@ WORKDIR ${DIR}
 COPY . .
 RUN pip install -r requirements.txt
 WORKDIR ${PROJECT}
-
-#
-# docker build -t vue:$(echo "${PWD##*/}") --build-arg DIR_NAME=$(echo "${PWD##*/}") --build-arg PROJECT_NAME=$(echo "${PWD##*/}") .
-#
-# docker run --rm -it -v $(pwd)/:/$(echo "${PWD##*/}") vue:$(echo "${PWD##*/}") ash

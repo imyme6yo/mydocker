@@ -1,4 +1,4 @@
-# @AUTHOR: jon "imyme6yo@gmail.com"
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200319
 
 # ARGUMENTs
@@ -8,14 +8,17 @@ ARG ALPINE=3.11
 FROM python:${VER}-alpine${ALPINE}
 
 # LABELs
-LABEL maintainer="jon"
+LABEL maintainer="imyme6yo"
 LABEL email="imyme6yo@gmail.com"
-
-# ENV
-ENV PROJECT=myapp
 
 # ARGUMENTs
 ARG DIR=code
+ARG PROJECT=myapp
+
+# ENV
+ENV PROJECT=${PROJECT}
+
+
 # ARG REQUIREMENTS=requirements.txt
 
 # Install Alpine Packages
