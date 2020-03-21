@@ -5,4 +5,5 @@
 
 create-react-app ${PROJECT}
 cd ${PROJECT}
+npm i --save-dev enzyme
 npx -p @storybook/cli sb init
