@@ -13,13 +13,14 @@ FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION}
 LABEL maintainer="imyme6yo"
 LABEL email="imyme6yo@gmail.com"
 
+# Arguments
+ARG DIR=code
+ARG PROJECT=myapp
+ARG PORT=9213
+
 # ENVs
 ENV HOST 0.0.0.0
 ENV PROJECT myapp
-
-# Arguments
-ARG DIR=code
-ARG PORT=9213
 
 # Install Alpine Packages
 RUN apk update && apk upgrade

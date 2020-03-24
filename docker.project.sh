@@ -2,7 +2,6 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200316
 # @UPDATE: 20200319
-
 # remove docker image
 docker ps -a | grep myapp | awk '{print $1}'| xargs docker stop
 # stop & rm docker container
