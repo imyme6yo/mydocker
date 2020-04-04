@@ -20,7 +20,7 @@ ARG PORT=9213
 
 # ENVs
 ENV HOST 0.0.0.0
-ENV PROJECT myapp
+ENV PROJECT=myapp
 
 # Install Alpine Packages
 RUN apk update && apk upgrade
