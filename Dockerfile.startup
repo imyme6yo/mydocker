@@ -1,21 +1,22 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200320
+# @UPDATE: 20200405
 
-# ARGUMENTs
-ARG VER=3.8.2
+# Arguments
+ARG PYTHON=3.8.2
 ARG ALPINE=3.11
 
-FROM python:${VER}-alpine${ALPINE}
+FROM python:${PYTHON}-alpine${ALPINE}
 
-# LABELs
+# Labels
 LABEL maintainer="imyme6yo"
 LABEL email="imyme6yo@gmail.com"
 
-# ARGUMENTs
+# Arguments
 ARG DIR=code
 ARG PROJECT=myapp
 
-# ENV
+# Envs
 ENV DIR=${DIR}
 ENV PROJECT=${PROJECT}
 
