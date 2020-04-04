@@ -37,7 +37,7 @@ if [ "$MODE" = "project" ]; then
     docker run --rm -it -v $(pwd):/code -p 9213:3000 -p 9244:9009 --name $NAME $IMAGE sh /code/project.sh
 elif [ "$MODE" = "start" ]; then
     # build image
-    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.start
+    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.startup
     # run container
     docker run --rm -it -v $(pwd):/code -p 9213:3000 --name $NAME $IMAGE sh /code/startup.sh
 fi
