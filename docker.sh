@@ -3,7 +3,6 @@
 # @DRAFT: 20200316
 # @UPDATE: 20200404
 MODE="project"
-IMAGE="myapp:dev"
 DIR="code"
 PROJECT="myapp"
 
@@ -21,8 +20,11 @@ fi
 if [ -n "$2" ] ; then
     PROJECT=$2
 fi
+
+# Set container name and image tag.
 NAME="$PROJECT-01"
 IMAGE="$PROJECT:dev"
+
 # stop docker image
 docker stop $NAME
 # stop & rm docker container
