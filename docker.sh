@@ -33,12 +33,12 @@ docker rm $CONTAINER
 docker rmi $IMAGE
 if [ "$MODE" = "project" ]; then
     # build image
-    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.project
+    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.project .
     # run container
     docker run --rm -it -v $(pwd):/code --name $CONTAINER $IMAGE sh /code/project.sh
 elif [ "$MODE" = "start" ]; then
     # build image
-    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.startup
+    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.startup .
     # run container
     docker run --rm -it -v $(pwd):/code --name $CONTAINER $IMAGE sh /code/startup.sh
 fi
