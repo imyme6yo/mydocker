@@ -24,10 +24,11 @@ fi
 NAME="$PROJECT-01"
 IMAGE="$PROJECT:dev"
 
-# stop docker image
+# stop docker container
 docker stop $NAME
-# stop & rm docker container
+# remove docker container
 docker rm $NAME
+# remove docker image
 docker rmi $IMAGE
 if [ "$MODE" = "project" ]; then
     # build image
