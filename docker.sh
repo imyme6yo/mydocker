@@ -1,7 +1,7 @@
 #!/bin/sh
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200325
-# @UPDATE: 20200404
+# @UPDATE: 20200405
 MODE="project"
 DIR="code"
 PROJECT="myapp"
@@ -33,12 +33,12 @@ docker rm $CONTAINER
 docker rmi $IMAGE
 if [ "$MODE" = "project" ]; then
     # build image
-    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.project
+    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.project .
     # run container
     docker run --rm -it -v $(pwd):/code -p 9218:3000 -p 9266:9009 --name $CONTAINER $IMAGE sh /code/project.sh
 elif [ "$MODE" = "start" ]; then
     # build image
-    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.startup
+    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.startup .
     # run container
     docker run --rm -it -v $(pwd):/code -p 9218:3000 --name $CONTAINER $IMAGE sh /code/startup.sh
 fi
