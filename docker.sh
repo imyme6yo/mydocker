@@ -22,23 +22,23 @@ if [ -n "$2" ] ; then
 fi
 
 # Set container name and image tag.
-NAME="$PROJECT-01"
+CONTAINER="$PROJECT-01"
 IMAGE="$PROJECT:dev"
 
 # stop docker container
-docker stop $NAME
+docker stop $CONTAINER
 # remove docker container
-docker rm $NAME
+docker rm $CONTAINER
 # remove docker image
 docker rmi $IMAGE
 if [ "$MODE" = "project" ]; then
     # build image
     docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.project
     # run container
-    docker run --rm -it -v $(pwd):/code -p 9218:3000 -p 9266:9009 --name $NAME $IMAGE sh /code/project.sh
+    docker run --rm -it -v $(pwd):/code -p 9218:3000 -p 9266:9009 --name $CONTAINER $IMAGE sh /code/project.sh
 elif [ "$MODE" = "start" ]; then
     # build image
     docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.startup
     # run container
-    docker run --rm -it -v $(pwd):/code -p 9218:3000 --name $NAME $IMAGE sh /code/startup.sh
+    docker run --rm -it -v $(pwd):/code -p 9218:3000 --name $CONTAINER $IMAGE sh /code/startup.sh
 fi
