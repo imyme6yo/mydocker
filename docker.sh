@@ -1,10 +1,11 @@
 #!/bin/sh
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200316
-# @UPDATE: 20200405
+# @UPDATE: 20200415
 MODE="project"
 DIR="code"
 PROJECT="myapp"
+SERVICE="$PROJECT-01"
 
 # Set MODE
 if [ -n "$1" ] ; then
@@ -22,7 +23,7 @@ if [ -n "$2" ] ; then
 fi
 
 # Set container name and image tag.
-CONTAINER="$PROJECT-01"
+CONTAINER="$SERVICE"
 IMAGE="$PROJECT:dev"
 
 # stop docker container
@@ -31,14 +32,29 @@ docker stop $CONTAINER
 docker rm $CONTAINER
 # remove docker image
 docker rmi $IMAGE
+
 if [ "$MODE" = "project" ]; then
-    # build image
-    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.project .
-    # run container
-    docker run --rm -it -v $(pwd):/code -p 9213:3000 -p 9244:9009 --name $CONTAINER $IMAGE sh /code/project.sh
+  # build image
+  docker build --force-rm \
+    --build-arg DIR=$DIR \
+    --build-arg PROJECT=$PROJECT \
+    -t $IMAGE -f ./Dockerfile.project .
+
+  # run container
+  docker run --rm -it \
+    -v $(pwd):/code \
+    -p 9213:3000 \
+    --name $CONTAINER $IMAGE sh /code/project.sh
 elif [ "$MODE" = "start" ]; then
     # build image
-    docker build --force-rm --build-arg DIR=$DIR --build-arg PROJECT=$PROJECT -t $IMAGE -f ./Dockerfile.startup .
+    docker build --force-rm \
+      --build-arg DIR=$DIR \
+      --build-arg PROJECT=$PROJECT \
+      -t $IMAGE -f ./Dockerfile.startup .
+
     # run container
-    docker run --rm -it -v $(pwd):/code -p 9213:3000 --name $CONTAINER $IMAGE sh /code/startup.sh
+    docker run --rm -it \
+      -v $(pwd):/code \
+      -p 9213:3000 \
+      --name $CONTAINER $IMAGE sh /code/startup.sh
 fi

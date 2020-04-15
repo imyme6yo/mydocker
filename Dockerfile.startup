@@ -1,29 +1,37 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200317
 # @UPDATE: 20200324
-
 # Arguments
 ARG NODE=13.10.1
 ARG ALPINE=3.10
+ARG TAG=${NODE}-alpine${ALPINE}
 
-FROM node:${NODE}-alpine${ALPINE}
+FROM node:${TAG}
 
 # Labels
 # Maintainer
 LABEL maintainer="imyme6yo"
 LABEL email="imyme6yo@gmail.com"
+# Service
+LABEL Name=myapp
+LABEL Version=0.0.1
 
 # Arguments
 ARG DIR=code
 ARG PROJECT=myapp
+ARG SERVICE=${PROJECT}-01
+ARG HOST=${SERVICE}
 ARG PORT=9213
 
 # Envs
-ENV HOST 0.0.0.0
+ENV HOST=${HOST}
 ENV PORT=${PORT}
-ENV PROJECT=${PRJECT}
+ENV DIR=${DIR}
+ENV PROJECT=${PROJECT}
+ENV SERVICE=${SERVICE}
+ENV CONTAINER=${SERVICE}
 
-# Install Alpine Packages
+# Install Alpine packages
 RUN apk update && apk upgrade
 RUN apk --no-cache add git
 
