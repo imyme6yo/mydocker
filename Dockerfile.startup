@@ -1,0 +1,67 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200416
+# Arguments
+ARG PYTHON=3.8.2
+ARG ALPINE=3.10
+ARG TAG=${PYTHON}-alpine${ALPINE}
+
+FROM python:${TAG}
+
+# Labels
+# Maintainer
+LABEL maintainer="imyme6yo"
+LABEL email="imyme6yo@gmail.com"
+# Service
+LABEL Name=myapp
+LABEL Version=0.0.1
+
+# Arguments
+ARG DIR=code
+ARG PROJECT=myapp
+ARG SERVICE=${PROJECT}
+ARG HOST=${SERVICE}
+ARG PORT=8080
+ARG DB_PORT=5432
+ARG POSTGRES_USER=admin
+ARG POSTGRES_PASSWORD=password
+ARG POSTGRES_DB=myapp
+ARG REQUIREMENT=requirements.txt
+
+# Envs
+ENV HOST=${HOST}
+ENV PORT=${PORT}
+ENV DIR=${DIR}
+ENV PROJECT=${PROJECT}
+ENV SERVICE=${SERVICE}
+ENV CONTAINER=${SERVICE}
+ENV DB_CONTAINER=${PROJECT}-postgres
+ENV DB_HOST=${DB_CONTAINER}
+ENV DB_PORT=${DB_PORT}
+ENV POSTGRES_USER=${POSTGRES_USER}
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+ENV POSTGRES_DB=${POSTGRES_DB}
+ENV REQUIREMENT=${REQUIREMENT}
+
+# Install Alpine packages
+RUN apk update && apk upgrade
+RUN apk add --no-cache  --virtual .build-deps gcc python-dev musl-dev
+RUN apk add postgresql-dev
+
+# Install django dependencies
+RUN pip install --upgrade pip
+RUN pip install greenlet
+RUN pip install eventlet
+RUN pip install gunicorn[eventlet]
+RUN pip install django
+RUN pip install django-filter
+RUN pip install djangorestframework
+RUN pip install django-rest-swagger
+RUN pip install psycopg2
+RUN pip install django-extensions
+RUN apk del .build-deps
+
+
+RUN mkdir ${DIR}
+WORKDIR ${DIR}
+COPY . .
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
