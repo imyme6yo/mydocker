@@ -32,6 +32,7 @@ CONTAINER="$SERVICE"
 # Set docker network name
 NETWORK="$PROJECT-network"
 
+
 # stop docker container
 docker stop $CONTAINER
 # remove docker container
