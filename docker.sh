@@ -39,12 +39,14 @@ docker rm $CONTAINER
 # remove docker image
 docker rmi $IMAGE
 
+echo $JENKINS_HOME
+
 # create network
 docker network create $NETWORK
 if [ "$MODE" = "jenkins-only" ]; then
     # build docker image
     docker build --force-rm \
-        --build-arg JENKINS_HOME=$DIR \
+        --build-arg JENKINS_HOME=$JENKINS_HOME \
         --build-arg PROJECT=$PROJECT \
         --build-arg SERVICE=$SERVICE \
         -t $IMAGE -f ./Dockerfile .
