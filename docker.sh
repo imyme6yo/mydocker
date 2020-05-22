@@ -53,8 +53,8 @@ if [ "$MODE" = "jenkins-only" ]; then
     docker run -d \
         -v $JENKINS_HOME:$JENKINS_HOME \
         --net=$NETWORK -p 9213:8080 \
-        --name $CONTAINER $IMAGE
-        #--name $CONTAINER $IMAGE sh /${JENKINS_HOME}/startup.sh
+        --name $CONTAINER $IMAGE sh /${JENKINS_HOME}/startup.sh
+        # --name $CONTAINER $IMAGE
 
 elif [ "$MODE" = "jenkins-gerrit" ]; then
     # build docker image
