@@ -52,7 +52,7 @@ if [ "$MODE" = "jenkins-only" ]; then
         -t $IMAGE -f ./Dockerfile .
         
     # run docker container
-    docker run -d \
+    docker run -it \
         -v $JENKINS_HOME:$JENKINS_HOME \
         --net=$NETWORK -p 9213:8080 \
         --name $CONTAINER $IMAGE ash
