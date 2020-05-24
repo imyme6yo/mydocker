@@ -56,7 +56,7 @@ if [ "$MODE" = "jenkins-only" ]; then
     # run docker container
     docker run -it \
         -v $JENKINS_HOME:$JENKINS_HOME \
-        -p 9213:8080/tcp \
+        -p 80:8080/tcp \
         --name $CONTAINER $IMAGE ash
         # --name $CONTAINER $IMAGE
 
