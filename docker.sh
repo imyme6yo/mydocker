@@ -56,7 +56,7 @@ if [ "$MODE" = "jenkins-only" ]; then
     # run docker container
     docker run -d \
         -v $JENKINS_HOME:$JENKINS_HOME \
-        -p 9213:8080 9214:50000 \
+        -p 9213:8080 -p 9214:50000 \
         --name $CONTAINER $IMAGE
         # --name $CONTAINER $IMAGE
 
