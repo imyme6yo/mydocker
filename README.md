@@ -1,52 +1,35 @@
-<!-- 
-@AUTHOR: imyme6yo "imyme6yo@gmail.com"
-@DRAFT: 20200317
-@UPDATE: 20200405
--->
+Jekins
+======
+### Overview
+
+[Jenkins official site](https://www.jenkins.io/)<br>
+[official guide](https://www.jenkins.io/doc/book/)<br>
+[official tutorial ](https://www.jenkins.io/doc/tutorials/)<br>
+
+### Troubleshoots
+
+1. 도커 설치하고 컨테이커가 종료된 후 로그가 아래와 같을때  <br>
+
+error : Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions
+
+volume을 사용할 시 호스트의 경로 /var/jenkins_home 에 권한이 없는 문제이다.
+
+해결 
+```shell
+# mkdir /var/jenkins_home
+# sudo chown 1000 /var/jeknins_home
+```
+
+#### Reference: [[docker] jenkins — Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions](https://medium.com/@logan.81k/docker-jenkins-can-not-write-to-var-jenkins-home-copy-reference-file-log-7a969991845a)
 
 
+### References
 
-### Git Installation
-
-> alpine
-> '''shell
-> apk add --no-cache git 
-> '''
-> linux
-> apt-get install -y git
-> centOS
-> yum install git
-
-### TODO
-    # merge startup & project shell script
-
-### Branch List
-
-    # 20200405 express @express
-    # 20200405 falcon @falcon
-    # 20200405 python3 @python3
-    # 20200405 python3 @python
-    # 20200405 svelte + sapper @svelte-sapper
-    # 20200405 svelte @svelte
-    # 20200405 vue2 @vue2
-    # 20200405 react @react
-    # 20200326 svelte @svelte
-    # 20200326 svelte + sapper @svelte-sapper
-    # 20200325 nuxt @nuxt - Not complete, it need to compltet shell script with expect.
-    # 20200320 python3 @python3
-    # 20200320 python3 @python
-    # 20200318 react @react
-    # 20200317 vue2 @vue2
-
-### Trouble Shoots
-
-#### When docker pull image, connection refuged
-reference: [[docker] pulling 이 안될경우](https://m.blog.naver.com/PostView.nhn?blogId=varkiry05&logNo=221450373568&proxyReferer=https:%2F%2Fwww.google.com%2F)
-
-error message:
-
-'''
-    ERROR: Get https://registry-1.docker.io/v2/: dial tcp: lookup registry-1.docker.io on [::1]:53: read udp [::1]:40562->[::1]:53: read: connection refused
-'''
-
-# 
+[[Jenkins] 젠킨스란 무엇인가](https://ict-nroo.tistory.com/31) <br>
+[Jenkins Pipeline 구성](https://medium.com/@jyson88/jenkins-pipeline-%EA%B5%AC%EC%84%B1-d4d0a4c074c5) <br>
+[https://kingbbode.tistory.com/35](https://kingbbode.tistory.com/35) <br>
+[젠킨스 사용하여 자동 배포환경 만들어보기](https://kingbbode.tistory.com/35) <br>
+[젠킨스 jenkins / Jenkinsfile 작성법 (gradle build, github 연동)](https://umbum.dev/868) <br>
+[]()
+[]()
+[]()
