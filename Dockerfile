@@ -1,7 +1,6 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200522
-ARG JEKINKS=2.60.3
-FROM jenkins:${JEKINKS}-alpine
+FROM jenkins/jenkins:lts-alpine
 
 # Lables
 # matainer
