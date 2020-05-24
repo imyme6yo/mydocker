@@ -54,10 +54,10 @@ if [ "$MODE" = "jenkins-only" ]; then
         -t $IMAGE -f ./Dockerfile .
         
     # run docker container
-    docker run -it \
+    docker run -d \
         -v $JENKINS_HOME:$JENKINS_HOME \
         -p 9213:8080 9214:50000 \
-        --name $CONTAINER $IMAGE ash
+        --name $CONTAINER $IMAGE
         # --name $CONTAINER $IMAGE
 
 elif [ "$MODE" = "jenkins-gerrit" ]; then
