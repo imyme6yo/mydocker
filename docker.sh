@@ -42,7 +42,9 @@ docker rmi $IMAGE
 echo $JENKINS_HOME
 
 # create network
-docker network create $NETWORK
+docker network create --driver bridge $NETWORK
+
+docker run -d 
 if [ "$MODE" = "jenkins-only" ]; then
     # build docker image
     docker build --force-rm \
@@ -54,7 +56,7 @@ if [ "$MODE" = "jenkins-only" ]; then
     # run docker container
     docker run -it \
         -v $JENKINS_HOME:$JENKINS_HOME \
-        --net=$NETWORK -p 9213:8080 \
+        --net=$NETWORK -p 9213:8080/tcp \
         --name $CONTAINER $IMAGE ash
         # --name $CONTAINER $IMAGE
 
