@@ -6,6 +6,36 @@ Jekins
 [official guide](https://www.jenkins.io/doc/book/)<br>
 [official tutorial ](https://www.jenkins.io/doc/tutorials/)<br>
 
+### Run jenkins
+
+#### install git
+- debian
+```shell
+# apt-get install git
+```
+- centOS
+```shell
+# yum install git
+```
+- alpine
+```
+# apk add git
+```
+
+#### add nameserver to 
+```shell
+# echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+```
+
+#### run docker container
+```shell
+# git clone https://github.com/imyme6yo/mydocker docker
+# cd docker
+# git checkout @jenkins
+# sh docker.sh
+```
+
+
 ### Troubleshoots
 
 1. 도커 설치하고 컨테이커가 종료된 후 로그가 아래와 같을때  <br>

@@ -8,6 +8,7 @@ JENKINS_HOME="/var/jenkins_home"
 SERVICE="myjenkins"
 GIT_REPO=""
 
+rm -rf ${JENKINS_HOME}
 mkdir ${JENKINS_HOME}
 sudo chown 1000 ${JENKINS_HOME}
 
