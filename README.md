@@ -6,9 +6,9 @@ Jekins
 [official guide](https://www.jenkins.io/doc/book/)<br>
 [official tutorial ](https://www.jenkins.io/doc/tutorials/)<br>
 
-### Run jenkins
+#### Run jenkins in docker container
 
-#### install git
+#### Install git
 - debian
 ```shell
 # apt-get install git
@@ -22,18 +22,20 @@ Jekins
 # apk add git
 ```
 
-#### add nameserver to 
+#### Add nameserver to 
 ```shell
 # echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 ```
 
-#### run docker container
+#### Run docker container
 ```shell
 # git clone https://github.com/imyme6yo/mydocker docker
 # cd docker
 # git checkout @jenkins
 # sh docker.sh
 ```
+
+#### Integration with github
 
 
 ### Troubleshoots
@@ -60,6 +62,3 @@ volume을 사용할 시 호스트의 경로 /var/jenkins_home 에 권한이 없�
 [https://kingbbode.tistory.com/35](https://kingbbode.tistory.com/35) <br>
 [젠킨스 사용하여 자동 배포환경 만들어보기](https://kingbbode.tistory.com/35) <br>
 [젠킨스 jenkins / Jenkinsfile 작성법 (gradle build, github 연동)](https://umbum.dev/868) <br>
-[]()
-[]()
-[]()
