@@ -1,9 +1,13 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200416
+# @UPDATE: 20200703
 # Arguments
 ARG PYTHON=3.8.2
 ARG ALPINE=3.10
 ARG TAG=${PYTHON}-alpine${ALPINE}
+
+# Base image
+FROM python:${TAG}
 
 # Labels
 # Maintainer
@@ -21,11 +25,9 @@ ARG SERVICE=${PROJECT}
 ARG HOST=${SERVICE}
 ARG PORT=8080
 ARG DB_PORT=5432
-ARG TEST_DB_HOST=${PROJECT}-postgres-test
-ARG TEST_DB_PORT=5432
 ARG POSTGRES_USER=admin
 ARG POSTGRES_PASSWORD=password
-ARG POSTGRES_DB=myapp
+ARG POSTGRES_DB=${PROJECT}
 ARG REQUIREMENT=requirements.txt
 
 # Envs

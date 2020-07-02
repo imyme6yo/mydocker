@@ -1,6 +1,7 @@
-#!/bin/sh
+!/bin/sh
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200416
+# @UPDATE: 20200703
 
 # alter role root set client_encoding to 'utf-8';
 # alter role root set timezone to 'Asia/Seoul';

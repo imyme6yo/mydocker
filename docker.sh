@@ -1,7 +1,7 @@
 #!/bin/sh
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200414
-# @UPDATED: 20200416
+# @UPDATED: 20200703
 MODE="project"
 DIR="code"
 PROJECT="myapp"
@@ -26,9 +26,9 @@ fi
 CONTAINER="$SERVICE"
 IMAGE="$PROJECT:dev"
 
-TEST_DB_CONTAINER="$PROJECT-postgres-test"
 DB_CONTAINER="$PROJECT-postgres"
 DB_IMAGE="postgres:12.2-alpine"
+DB_PORT=5432
 
 # database environment variables
 POSTGRES_USER=admin
