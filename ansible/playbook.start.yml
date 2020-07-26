@@ -1,0 +1,34 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200725
+# @UPDATE: 20200726
+---
+  - name: create django project, dobyfan-page
+    hosts: 127.0.0.1
+    tasks:
+      - name: create docker image, dobyfan-page:dev
+        docker_image:
+          name: "{{ lookup('env', 'SERVICE') }}"
+          tag: "{{ lookup('env', 'IMAGE_TAG') }}"
+          build:
+            path: .
+            dockerfile: Dockerfile.start
+            args:
+              DEFUG: "{{ lookup('env', 'DEBUG') }}"
+              DIR: "{{ lookup('env', 'PAGE_DIR') }}"
+              PROJECT: "{{ lookup('env', 'PROJECT') }}"
+              IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
+              TEST_PORT: "{{ lookup('env', 'TEST_PORT') }}"
+              POSTGRES_USER: "{{ lookup('env', 'POSTGRES_USER') }}"
+              POSTGRES_PASSWORD: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
+              POSTGRES_DB: "{{ lookup('env', 'POSTGRES_DB') }}"
+              REQUIREMENT: requirements.txt
+      - name: run docker container, dobyfan-page
+        docker_container:
+          name: "{{ lookup('env','SERVICE') }}"
+          state: started
+          recreate: yes
+          auto_remove: yes
+          image: "{{ lookup('env','SERVICE') }}:{{ lookup('env','IMAGE_TAG') }}"
+          volumes:
+            - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'PAGE_DIR') }}:/{{ lookup('env', 'PAGE_DIR') }}"
+          command: "sh /{{ lookup('env', 'PAGE_DIR')}}/startup.sh"
