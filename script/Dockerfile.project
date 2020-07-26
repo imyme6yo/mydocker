@@ -19,6 +19,7 @@ LABEL Version=0.0.1
 
 
 # Arguments
+ARG DEBUG=true
 ARG DIR=code
 ARG PROJECT=myapp
 ARG SERVICE=${PROJECT}
@@ -31,6 +32,7 @@ ARG POSTGRES_DB=${PROJECT}
 ARG REQUIREMENT=requirements.txt
 
 # Envs
+ENV DEBUG=${DEUBG}
 ENV HOST=${HOST}
 ENV PORT=${PORT}
 ENV DIR=${DIR}
