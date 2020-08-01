@@ -2,10 +2,10 @@
 # @DRAFT: 20200725
 # @UPDATE: 20200726
 ---
-  - name: create django project, myapp
+  - name: create django project, dobyfan-page
     hosts: 127.0.0.1
     tasks:
-      - name: create docker image, myapp:dev
+      - name: create docker image, dobyfan-page:dev
         docker_image:
           name: "{{ lookup('env', 'SERVICE') }}"
           tag: "{{ lookup('env', 'IMAGE_TAG') }}"
@@ -22,7 +22,7 @@
               POSTGRES_PASSWORD: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
               POSTGRES_DB: "{{ lookup('env', 'POSTGRES_DB') }}"
               REQUIREMENT: requirements.txt
-      - name: run docker container, myapp
+      - name: run docker container, dobyfan-page
         docker_container:
           name: "{{ lookup('env','SERVICE') }}"
           state: started
