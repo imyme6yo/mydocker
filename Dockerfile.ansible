@@ -1,0 +1,63 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200801
+# Arguments
+ARG PYTHON=3.8.2
+ARG ALPINE=3.11
+ARG TAG=${PYTHON}-alpine${ALPINE}
+
+FROM python:${TAG}
+
+# Labels
+LABEL maintainer="imyme6yo"
+LABEL email="imyme6yo@gmail.com"
+
+# Arguments
+ARG CONTEXT
+ARG DEBUG=true
+ARG DIR=dobyfan
+ARG PROJECT=dobyfan
+ARG PROJECT_NETWORK=dobyfan-network
+ARG IMAGE_TAG=dev
+ARG PAGE_DIR=page
+ARG PAGE_SERVICE=page
+ARG PAGE_PORT=8080
+ARG POSTGRES_USER=admin
+ARG POSTGRES_PASSWORD=password
+ARG POSTGRES_DB=dobyfan
+ARG WEB_DIR=web
+ARG WEB_SERVICE=web
+ARG WEB_PORT=3000
+
+# Envs
+ENV CONTEXT=${CONTEXT}
+ENV DEBUG=${DEUBG}
+ENV DIR=${DIR}
+ENV PROJECT=${PROJECT}
+ENV PROJECT_NETWORK=${PROJECT_NETWORK}
+ENV IMAGE_TAG=${IMAGE_TAG}
+ENV PAGE_DIR=${PAGE_DIR}
+ENV PAGE_SERVICE=${PAGE_SERVICE}
+ENV PAGE_PORT=${PAGE_PORT}
+ENV POSTGRES_USER=${POSTGRES_USER}
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+ENV POSTGRES_DB=${POSTGRES_DB}
+ENV WEB_DIR=${WEB_DIR}
+ENV WEB_SERVICE=${WEB_SERVICE}
+ENV WEB_PORT=${WEB_PORT}
+
+# Apk packages
+RUN apk update && apk upgrade
+RUN apk add --no-cache python3-dev musl-dev libffi-dev openssl-dev build-base gcc
+RUN apk add --no-cache docker openrc
+RUN rc-update add docker boot
+
+# # Python packages
+RUN pip install --upgrade pip
+RUN pip install cffi
+RUN pip install ansible
+RUN pip install docker
+RUN pip install docker-compose
+
+# Workspace
+RUN mkdir ${DIR}
+WORKDIR ${DIR}

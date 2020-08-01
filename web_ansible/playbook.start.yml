@@ -1,0 +1,28 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200801
+---
+  - name: create vue3 project, myapp
+    hosts: 127.0.0.1
+    tasks:
+      - name: create docker image, myapp-web:dev
+        docker_image:
+          name: "$PROJECT-$SERVICE"
+          tag: $IMAGE_TAG
+          build:
+            path: .
+            dockerfile: Dockerfile.start
+            args:
+              DEFUG: $DEBUG
+              DIR: $WEB_DIR
+              PROJECT: $PROJECT
+              IMAGE_TAG: $IMAGE_TAG
+      - name: run docker container, myapp-web
+        docker_container:
+          name: "$PROJECT-$SERVICE"
+          state: started
+          recreate: yes
+          auto_remove: yes
+          image: "$PROJECT-$SERVICE:$IMAGE_TAG"
+          volumes:
+            - "$CONTEXT/$WEB_DIR:/$WEB_DIR"
+          command: "sh /$WEB_DIR/startup.sh"

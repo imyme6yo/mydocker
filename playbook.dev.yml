@@ -1,0 +1,22 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200801
+---
+    - name: create vue3 project, myapp
+      hosts: 127.0.0.1
+      tasks:
+        - name: create network
+          docker_network: 
+            state: present
+            name: $PROJECT_NETWORK
+            attachable: yes
+        - name: remove web service
+          docker_compose:
+            project_src: $WEB_DIR
+            files:
+              - docker-compose.yml
+            state: absent
+        - name: start web service
+          docker_compose:
+            project_src: $WEB_DIR
+            files:
+              - docker-compose.yml
