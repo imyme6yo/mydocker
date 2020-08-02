@@ -1,28 +1,30 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200801
+# @UPDATE: 20200802
 ---
   - name: create vue3 project, myapp
     hosts: 127.0.0.1
     tasks:
       - name: create docker image, myapp-web:dev
         docker_image:
-          name: "$PROJECT-$SERVICE"
-          tag: $IMAGE_TAG
+          name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
+          tag: "{{ lookup('env', 'IMAGE_TAG') }}"
           build:
             path: .
             dockerfile: Dockerfile.start
             args:
-              DEFUG: $DEBUG
-              DIR: $WEB_DIR
-              PROJECT: $PROJECT
-              IMAGE_TAG: $IMAGE_TAG
+              DEFUG: "{{ lookup('env', 'DEBUG') }}"
+              DIR: "{{ lookup('env', 'WEB_DIR') }}"
+              PROJECT: "{{ lookup('env', 'PROJECT') }}"
+              SERVICE: "{{ lookup('env', 'WEB_SERVICE') }}"
+              IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
       - name: run docker container, myapp-web
         docker_container:
-          name: "$PROJECT-$SERVICE"
+          name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
           state: started
           recreate: yes
           auto_remove: yes
-          image: "$PROJECT-$SERVICE:$IMAGE_TAG"
+          image: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}:{{ lookup('env', 'IMAGE_TAG') }}"
           volumes:
-            - "$CONTEXT/$WEB_DIR:/$WEB_DIR"
-          command: "sh /$WEB_DIR/startup.sh"
+            - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'WEB_DIR') }}:/{{ lookup('env', 'WEB_DIR') }}"
+          command: "sh /{{ lookup('env', 'WEB_DIR') }}/startup.sh"
