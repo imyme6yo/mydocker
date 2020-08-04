@@ -13,13 +13,9 @@
             dockerfile: Dockerfile.start
             args:
               DEFUG: "{{ lookup('env', 'DEBUG') }}"
-              DIR: "{{ lookup('env', 'DIR') }}"
               PROJECT: "{{ lookup('env', 'PROJECT') }}"
               SERVICE: "{{ lookup('env', 'MYAPP_SERVICE') }}"
               IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
-              POSTGRES_USER: "{{ lookup('env', 'POSTGRES_USER') }}"
-              POSTGRES_PASSWORD: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
-              POSTGRES_DB: "{{ lookup('env', 'POSTGRES_DB') }}"
               REQUIREMENT: requirements.txt
       - name: run docker container, myproject-myapp
         docker_container:

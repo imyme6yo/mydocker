@@ -13,7 +13,6 @@ IMAGE_TAG="dev"
 
 # Page service environment variables
 MYAPP_SERVICE="myapp"
-MYAPP_DIR="myapp"
 MYAPP_PORT=3000
 POSTGRES_USER="admin"
 POSTGRES_PASSWORD="password"
@@ -21,7 +20,6 @@ POSTGRES_DB="myproject"
 
 # Frontent environment varialbes
 WEB_SERVICE="web"
-WEB_DIR="web"
 WEB_PORT=8080
 
 # Ansible environment varialbes
@@ -45,13 +43,11 @@ docker build --force-rm \
   --build-arg PROJECT_NETWORK=$PROJECT_NETWORK \
   --build-arg IMAGE_TAG=$IMAGE_TAG \
   --build-arg MYAPP_SERVICE=$MYAPP_SERVICE \
-  --build-arg MYAPP_DIR=$MYAPP_DIR \
   --build-arg MYAPP_PORT=$MYAPP_PORT \
   --build-arg POSTGRES_USER=$POSTGRES_USER \
   --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
   --build-arg POSTGRES_DB=$POSTGRES_DB \
   --build-arg WEB_SERVICE=$WEB_SERVICE \
-  --build-arg WEB_DIR=$WEB_DIR \
   --build-arg WEB_PORT=$WEB_PORT \
   -t $IMAGE -f Dockerfile.ansible .
 
