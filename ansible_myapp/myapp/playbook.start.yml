@@ -1,34 +1,33 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
-# @DRAFT: 20200725
-# @UPDATE: 20200726
+# @DRAFT: 20200804
 ---
-  - name: create django project, dobyfan-page
+  - name: create django project, myproject-myapp
     hosts: 127.0.0.1
     tasks:
-      - name: create docker image, dobyfan-page:dev
+      - name: create docker image, myproject-myapp:dev
         docker_image:
-          name: "{{ lookup('env', 'SERVICE') }}"
+          name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'MYAPP_SERVICE') }}"
           tag: "{{ lookup('env', 'IMAGE_TAG') }}"
           build:
             path: .
             dockerfile: Dockerfile.start
             args:
               DEFUG: "{{ lookup('env', 'DEBUG') }}"
-              DIR: "{{ lookup('env', 'PAGE_DIR') }}"
+              DIR: "{{ lookup('env', 'DIR') }}"
               PROJECT: "{{ lookup('env', 'PROJECT') }}"
+              SERVICE: "{{ lookup('env', 'MYAPP_SERVICE') }}"
               IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
-              TEST_PORT: "{{ lookup('env', 'TEST_PORT') }}"
               POSTGRES_USER: "{{ lookup('env', 'POSTGRES_USER') }}"
               POSTGRES_PASSWORD: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
               POSTGRES_DB: "{{ lookup('env', 'POSTGRES_DB') }}"
               REQUIREMENT: requirements.txt
-      - name: run docker container, dobyfan-page
+      - name: run docker container, myproject-myapp
         docker_container:
-          name: "{{ lookup('env','SERVICE') }}"
+          name: "{{ lookup('env','MYAPP_SERVICE') }}"
           state: started
           recreate: yes
           auto_remove: yes
-          image: "{{ lookup('env','SERVICE') }}:{{ lookup('env','IMAGE_TAG') }}"
+          image: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'MYAPP_SERVICE') }}:{{ lookup('env','IMAGE_TAG') }}"
           volumes:
-            - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'PAGE_DIR') }}:/{{ lookup('env', 'PAGE_DIR') }}"
+            - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'MYAPP_SERVICE') }}:/{{ lookup('env', 'MYAPP_SERVICE') }}"
           command: "sh /{{ lookup('env', 'PROJECT')}}/startup.sh"

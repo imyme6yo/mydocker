@@ -1,0 +1,65 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200804
+# Arguments
+ARG PYTHON=3.8.2
+ARG ALPINE=3.10
+ARG TAG=${PYTHON}-alpine${ALPINE}
+
+# Base image
+FROM python:${TAG}
+
+# Labels
+# Maintainer
+LABEL maintainer="imyme6yo"
+LABEL email="imyme6yo@gmail.com"
+# Service
+LABEL Name=myproject-myapp
+LABEL Version=0.0.1
+
+# Arguments
+ARG DEBUG=true
+ARG DIR=myapp
+ARG PROJECT=myproject
+ARG SERVICE=myapp
+ARG IMAGE_TAG=dev
+ARG HOST=${PROJECT}-${SERVICE}
+ARG PORT=8080
+ARG DB_CONTAINER=${PROJECT}-${SERVICE}-postgres
+ARG DB_PORT=5432
+ARG POSTGRES_USER=admin
+ARG POSTGRES_PASSWORD=password
+ARG POSTGRES_DB=${PROJECT}
+ARG REQUIREMENT=requirements.txt
+
+# Envs
+ENV DEBUG=${DEBUG}
+ENV HOST=${HOST}
+ENV PORT=${PORT}
+ENV DIR=${DIR}
+ENV PROJECT=${PROJECT}
+ENV SERVICE=${SERVICE}
+ENV CONTAINER=${PROJECT}-${SERVICE}
+ENV IMAGE_TAG=${IMAGE_TAG}
+ENV DB_CONTAINER=${DB_CONTAINER}
+ENV DB_HOST=${DB_CONTAINER}
+ENV DB_PORT=${DB_PORT}
+ENV POSTGRES_USER=${POSTGRES_USER}
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+ENV POSTGRES_DB=${POSTGRES_DB}
+ENV REQUIREMENT=${REQUIREMENT}
+
+# Install Alpine packages
+RUN apk update && apk upgrade
+RUN apk update && apk upgrade
+RUN apk add --no-cache  --virtual .build-deps gcc python-dev musl-dev
+RUN apk add postgresql-dev
+
+# Install django dependencies
+RUN pip install --upgrade pip
+
+# Create Project by Default Settings
+RUN mkdir ${SERVICE}
+WORKDIR ${SERVICE}
+COPY . .
+RUN pip install -r ${REQUIREMENT}
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

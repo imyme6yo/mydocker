@@ -1,0 +1,36 @@
+version: '3.4'
+services:
+  myproject-myapp-postgres:
+    image: postgres:12.2-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    networks:
+      - myproject-network
+  myproject-myapp:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        DEBUG: ${DEBUG}
+        DIR: ${MYAPP_DIR}
+        PROJECT: ${PROJECT}
+        SERVICE: ${MYAPP_SERVICE}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_DB: ${POSTGRES_DB}
+    image: "${PROJECT}-${MYAPP_SERVICE}:${IMAGE_TAG}"
+    volumes:
+      - ${CONTEXT}/${MYAPP_SERVICE}:/${MYAPP_SERVICE}
+      - ${CONTEXT}/files/${MYAPP_SERVICE}:/var/local/${PROJECT}/files/${MYAPP_SERVICE}
+    networks:
+      - myproject-network
+    ports:
+      - ${MYAPP_PORT}:8080
+    command: ash
+    tty: yes
+
+networks:
+  myproject-network:
+    external: true

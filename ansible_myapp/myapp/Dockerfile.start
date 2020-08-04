@@ -1,5 +1,5 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
-# @DRAFT: 20200725
+# @DRAFT: 20200804
 # Arguments
 ARG PYTHON=3.8.2
 ARG ALPINE=3.10
@@ -12,12 +12,12 @@ FROM python:${TAG}
 LABEL maintainer="imyme6yo"
 LABEL email="imyme6yo@gmail.com"
 # Service
-LABEL Name=dobyfan-page
+LABEL Name=myproject-myapp
 LABEL Version=0.0.1
 
 # Arguments
 ARG DEBUG=true
-ARG DIR=myproject
+ARG DIR=myapp
 ARG PROJECT=myproject
 ARG SERVICE=myapp
 ARG IMAGE_TAG=dev
@@ -30,7 +30,7 @@ ENV DEBUG=${DEBUG}
 ENV DIR=${DIR}
 ENV PROJECT=${PROJECT}
 ENV SERVICE=${SERVICE}
-ENV CONTAINER=${PROJECT}
+ENV CONTAINER=${PROJECT}-${SERVICE}
 ENV IMAGE_TAG=${IMAGE_TAG}
 ENV HOST=${HOST}
 ENV REQUIREMENT=${REQUIREMENT}
@@ -55,6 +55,6 @@ RUN pip install psycopg2
 RUN pip install django-extensions
 RUN apk del .build-deps
 
-RUN mkdir ${DIR}
-WORKDIR ${DIR}
+RUN mkdir ${SERVICE}
+WORKDIR ${SERVICE}
 COPY . .
