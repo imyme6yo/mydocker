@@ -7,5 +7,5 @@
 # create group
 # set username / password
 pip freeze > ${REQUIREMENT}
-django-admin startproject $SERVICE
-cp ./django/settings.pg.py ./$SERVICE/$SERVICE/settings.py
+django-admin startproject $PROJECT
+cp ./django/settings.pg.py ./$PROJECT/$SERVICE/settings.py

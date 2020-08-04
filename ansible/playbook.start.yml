@@ -31,4 +31,4 @@
           image: "{{ lookup('env','SERVICE') }}:{{ lookup('env','IMAGE_TAG') }}"
           volumes:
             - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'PAGE_DIR') }}:/{{ lookup('env', 'PAGE_DIR') }}"
-          command: "sh /{{ lookup('env', 'PAGE_DIR')}}/startup.sh"
+          command: "sh /{{ lookup('env', 'PROJECT')}}/startup.sh"

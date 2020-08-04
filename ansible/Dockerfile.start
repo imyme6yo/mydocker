@@ -17,8 +17,8 @@ LABEL Version=0.0.1
 
 # Arguments
 ARG DEBUG=true
-ARG DIR=code
-ARG PROJECT=myapp
+ARG DIR=myproject
+ARG PROJECT=myproject
 ARG SERVICE=myapp
 ARG IMAGE_TAG=dev
 ARG HOST=${PROJECT}
