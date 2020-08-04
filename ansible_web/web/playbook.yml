@@ -1,19 +1,19 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200803
 ---
-    - name: create svelte project, myapp
+    - name: create svelte project, myproject
       hosts: 127.0.0.1
       tasks:
-        - name: remove docker container, myapp-web
+        - name: remove docker container, myproject-web
           docker_container:
             name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
             state: absent
-        - name: remove docker image, myapp-web:dev
+        - name: remove docker image, myproject-web:dev
           docker_image:
             state: absent
             name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
             tag: "{{ lookup('env', 'IMAGE_TAG') }}"
-        - name: create docker image, myapp-web:dev
+        - name: create docker image, myproject-web:dev
           docker_image:
             state: present
             name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
@@ -23,14 +23,13 @@
               dockerfile: Dockerfile.dev
               args:
                 DEFUG: "{{ lookup('env', 'DEBUG') }}"
-                DIR: "{{ lookup('env', 'WEB_DIR') }}"
                 PROJECT: "{{ lookup('env', 'PROJECT') }}"
                 SERVICE: "{{ lookup('env', 'WEB_SERVICE') }}"
-                IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
                 HOST: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
                 PORT: "{{ lookup('env', 'WEB_PORT') }}"
+                IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
             source: build
-        - name: run docker container, myapp-web
+        - name: run docker container, myproject-web
           docker_container:
             name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
             state: started
@@ -38,8 +37,8 @@
             # auto_remove: yes
             image: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}:{{ lookup('env', 'IMAGE_TAG') }}"
             volumes:
-              - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'WEB_DIR') }}:/{{ lookup('env', 'WEB_DIR') }}"
-            command: "sh /{{ lookup('env', 'WEB_DIR') }}/dev.sh"
+              - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'WEB_SERVICE') }}:/{{ lookup('env', 'WEB_SERVICE') }}"
+            command: "sh /{{ lookup('env', 'WEB_SERVICE') }}/dev.sh"
             # detach: yes
             # interactive: yes
             # command: ash

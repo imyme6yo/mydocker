@@ -1,5 +1,6 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
-# @DRAFT: 20200725
+# @DRAFT: 20200804
+# @UPDATE: 20200804
 # Arguments
 ARG NODE=14.7.0
 ARG ALPINE=3.10
@@ -12,21 +13,19 @@ FROM node:${TAG}
 LABEL maintainer="imyme6yo"
 LABEL email="imyme6yo@gmail.com"
 # Service
-LABEL Name=myapp
+LABEL Name=myproject-web
 LABEL Version=0.0.1
 
 # Arguments
 ARG DEBUG=true
-ARG DIR=web
-ARG PROJECT=myapp
+ARG PROJECT=myproject
 ARG SERVICE=web
-ARG IMAGE_TAG=dev
-ARG HOST=${PROJECT}-web
+ARG HOST=${PROJECT}-${SERVICE}
 ARG PORT=3000
+ARG IMAGE_TAG=dev
 
 # Envs
 ENV DEBUG=${DEBUG}
-ENV DIR=${DIR}
 ENV PROJECT=${PROJECT}
 ENV SERVICE=${SERVICE}
 ENV CONTAINER=${PROJECT}-${SERVICE}
