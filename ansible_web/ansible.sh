@@ -5,7 +5,6 @@
 # Common environment variables
 CONTEXT=$(pwd)
 DEBUG=$true
-DIR="myproject"
 PROJECT="myproject"
 PROJECT_NETWORK="$PROJECT-network"
 IMAGE_TAG="dev"
