@@ -1,5 +1,6 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200804
+# @UPDATE: 20200810
 #!/bin/bash
 
 # Common environment variables
@@ -9,16 +10,19 @@ PROJECT="myproject"
 PROJECT_NETWORK="$PROJECT-network"
 IMAGE_TAG="dev"
 
-# Page service environment variables
-MYAPP_SERVICE="myapp"
-MYAPP_PORT=3000
 POSTGRES_USER="admin"
 POSTGRES_PASSWORD="password"
 POSTGRES_DB=${PROJECT}
 
+# Page service environment variables
+MYAPP_SERVICE="myapp"
+MYAPP_PORT=9200
+MYAPP_CONTAINER_PORT=3000
+
 # Frontent environment varialbes
 WEB_SERVICE="web"
-WEB_PORT=8080
+WEB_PORT=9201
+WEB_CONTAINER_PORT=8080
 
 # Ansible environment varialbes
 # Set docker container name and image tag
@@ -42,11 +46,13 @@ docker build --force-rm \
   --build-arg IMAGE_TAG=$IMAGE_TAG \
   --build-arg MYAPP_SERVICE=$MYAPP_SERVICE \
   --build-arg MYAPP_PORT=$MYAPP_PORT \
+  --build-arg MYAPP_CONTAINER_PORT=$MYAPP_CONTAINER_PORT \
   --build-arg POSTGRES_USER=$POSTGRES_USER \
   --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
   --build-arg POSTGRES_DB=$POSTGRES_DB \
   --build-arg WEB_SERVICE=$WEB_SERVICE \
   --build-arg WEB_PORT=$WEB_PORT \
+  --build-arg WEB_CONTAINER_PORT=$WEB_CONTAINER_PORT \
   -t $IMAGE -f Dockerfile.ansible .
 
 # run docker container

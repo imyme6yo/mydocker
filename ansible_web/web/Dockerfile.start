@@ -1,6 +1,6 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200804
-# @UPDATE: 20200804
+# @UPDATE: 20200810
 # Arguments
 ARG NODE=14.7.0
 ARG ALPINE=3.10
@@ -38,7 +38,6 @@ RUN apk update && apk upgrade
 # Install node dependencies
 RUN npm install -g http-server
 
-
-RUN mkdir ${DIR}
-WORKDIR ${DIR}
+RUN mkdir ${SERVICE}
+WORKDIR ${SERVICE}
 COPY . .

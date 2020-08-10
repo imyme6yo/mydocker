@@ -1,6 +1,6 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200801
-# @UPDATE: 20200803
+# @UPDATE: 20200810
 ---
   - name: create svelte project, myapp
     hosts: 127.0.0.1
@@ -26,7 +26,6 @@
               DEFUG: "{{ lookup('env', 'DEBUG') }}"
               PROJECT: "{{ lookup('env', 'PROJECT') }}"
               SERVICE: "{{ lookup('env', 'WEB_SERVICE') }}"
-              PORT: "{{ lookup('env', 'WEB_PORT') }}"
               IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
           source: build
       - name: run docker container, myproject-web

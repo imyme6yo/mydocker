@@ -17,3 +17,5 @@ cp ../tailwindcss/Tailwindcss.svelte ./src/Tailwindcss.svelte
 cp ../tailwindcss/App.svelte ./src/App.svelte
 cp ../tailwindcss/rollup.config.js ./rollup.config.js
 cp ../tailwindcss/tailwind.config.js ./tailwind.config.js
+
+npx -p @storybook/cli sb init --type svelte

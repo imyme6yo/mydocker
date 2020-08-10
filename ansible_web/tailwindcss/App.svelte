@@ -1,5 +1,5 @@
 <script>
-	import Tailwindcss from "./Tailwind.svelte";
+	import Tailwindcss from "./Tailwindcss.svelte";
 	export let name;
 </script>
 <Tailwindcss />
