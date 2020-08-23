@@ -6,7 +6,6 @@
 CONTEXT=$(pwd)
 DEBUG=$true
 PROJECT="myproject"
-PROJECT_NETWORK="$PROJECT-network"
 IMAGE_TAG="dev"
 
 # Ansible environment varialbes
@@ -27,7 +26,6 @@ docker build --force-rm \
   --build-arg CONTEXT=$CONTEXT \
   --build-arg DEBUG=$DEBUG \
   --build-arg PROJECT=$PROJECT \
-  --build-arg PROJECT_NETWORK=$PROJECT_NETWORK \
   --build-arg IMAGE_TAG=$IMAGE_TAG \
   -t $IMAGE -f Dockerfile.ansible .
 
