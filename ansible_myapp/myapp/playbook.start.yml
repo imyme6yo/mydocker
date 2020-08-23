@@ -1,5 +1,6 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200804
+# @UPDATE: 20200824
 ---
   - name: create django project, myproject-myapp
     hosts: 127.0.0.1
@@ -26,4 +27,4 @@
           image: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'MYAPP_SERVICE') }}:{{ lookup('env','IMAGE_TAG') }}"
           volumes:
             - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'MYAPP_SERVICE') }}:/{{ lookup('env', 'MYAPP_SERVICE') }}"
-          command: "sh /{{ lookup('env', 'PROJECT')}}/startup.sh"
+          command: "sh /{{ lookup('env', 'MYAPP_SERVICE')}}/startup.sh"

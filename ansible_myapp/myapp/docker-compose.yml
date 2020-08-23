@@ -1,3 +1,6 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200804
+# @UPDATE: 20200824
 version: '3.4'
 services:
   myproject-myapp-postgres:
@@ -26,8 +29,10 @@ services:
       - ${CONTEXT}/files/${MYAPP_SERVICE}:/var/local/${PROJECT}/files/${MYAPP_SERVICE}
     networks:
       - myproject-network
+    expose: 
+      - ${BOOK_CONTAINER_PORT}
     ports:
-      - ${MYAPP_PORT}:8080
+      - ${MYAPP_PORT}:${MYAPP_CONTAINER_PORT}
     command: ash
     tty: yes
 

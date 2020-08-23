@@ -1,6 +1,6 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200725
-# @UPDATE: 20200804
+# @UPDATE: 20200824
 #!/bin/bash
 
 # Common environment variables
@@ -10,16 +10,20 @@ PROJECT="myproject"
 PROJECT_NETWORK="$PROJECT-network"
 IMAGE_TAG="dev"
 
-# Page service environment variables
+# myapp service environment variables
 MYAPP_SERVICE="myapp"
-MYAPP_PORT=3000
+MYAPP_PORT=7111
+MYAPP_CONTAINER_PORT=3000
 POSTGRES_USER="admin"
 POSTGRES_PASSWORD="password"
 POSTGRES_DB="myproject"
 
 # Frontent environment varialbes
 WEB_SERVICE="web"
-WEB_PORT=8080
+WEB_PORT=7113
+WEB_CONTAINER_PORT=3000
+WEB_STORYBOOK_PORT=7114
+WEB_STORYBOOK_CONTAINER_PORT=6006
 
 # Ansible environment varialbes
 # Set docker container name and image tag
@@ -43,11 +47,15 @@ docker build --force-rm \
   --build-arg IMAGE_TAG=$IMAGE_TAG \
   --build-arg MYAPP_SERVICE=$MYAPP_SERVICE \
   --build-arg MYAPP_PORT=$MYAPP_PORT \
+  --build-arg MYAPP_CONTAINER_PORT=$MYAPP_CONTAINER_PORT \
   --build-arg POSTGRES_USER=$POSTGRES_USER \
   --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
   --build-arg POSTGRES_DB=$POSTGRES_DB \
   --build-arg WEB_SERVICE=$WEB_SERVICE \
   --build-arg WEB_PORT=$WEB_PORT \
+  --build-arg WEB_CONTAINER_PORT=$WEB_CONTAINER_PORT \
+  --build-arg WEB_STORYBOOK_PORT=$WEB_STORYBOOK_PORT \
+  --build-arg WEB_STORYBOOK_CONTAINER_PORT=$WEB_STORYBOOK_CONTAINER_PORT \
   -t $IMAGE -f Dockerfile.ansible .
 
 # run docker container
