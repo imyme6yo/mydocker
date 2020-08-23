@@ -3,7 +3,7 @@
 #!/bin/bash
 
 # Environment variables
-CONTEXT=$(pwd)
+CONTEXT=$(PWD)
 DEBUG=$true
 PROJECT="myproject"
 IMAGE_TAG="dev"
