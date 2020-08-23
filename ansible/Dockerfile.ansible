@@ -1,0 +1,46 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200824
+
+# Arguments
+ARG PYTHON=3.8.2
+ARG ALPINE=3.11
+ARG TAG=${PYTHON}-alpine${ALPINE}
+
+FROM python:${TAG}
+
+# Labels
+LABEL maintainer="imyme6yo"
+LABEL email="imyme6yo@gmail.com"
+
+# Arguments
+ARG CONTEXT
+ARG DEBUG=true
+ARG DIR=myproject
+ARG PROJECT=myproject
+ARG PROJECT_NETWORK=myproject-network
+ARG IMAGE_TAG=dev
+
+# Envs
+ENV CONTEXT=${CONTEXT}
+ENV DEBUG=${DEUBG}
+ENV DIR=${DIR}
+ENV PROJECT=${PROJECT}
+ENV PROJECT_NETWORK=${PROJECT_NETWORK}
+ENV IMAGE_TAG=${IMAGE_TAG}
+
+# Apk packages
+RUN apk update && apk upgrade
+RUN apk add --no-cache python3-dev musl-dev libffi-dev openssl-dev build-base gcc
+RUN apk add --no-cache docker openrc
+RUN rc-update add docker boot
+
+# # Python packages
+RUN pip install --upgrade pip
+RUN pip install cffi
+RUN pip install ansible
+RUN pip install docker
+RUN pip install docker-compose
+
+# Workspace
+RUN mkdir ${DIR}
+WORKDIR ${DIR}

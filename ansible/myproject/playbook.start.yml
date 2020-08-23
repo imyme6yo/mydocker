@@ -1,0 +1,28 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200824
+---
+    - name: create project
+      hosts: 127.0.0.1
+      tasks:
+        - name: create docker image, myproject:dev
+          docker_image:
+            name: "{{ lookup('env', 'PROJECT') }}"
+            tag: "{{ lookup('env', 'IMAGE_TAG') }}"
+            build:
+              path: .
+              dockerfile: Dockerfile.start
+              args:
+                DEFUG: "{{ lookup('env', 'DEBUG') }}"
+                PROJECT: "{{ lookup('env', 'PROJECT') }}"
+                IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
+                REQUIREMENT: requirements.txt
+        - name: run docker container, myproject
+          docker_container:
+            name: "{{ lookup('env', 'PROJECT') }}"
+            state: started
+            recreate: yes
+            auto_remove: yes
+            image: "{{ lookup('env', 'PROJECT') }}:{{ lookup('env','IMAGE_TAG') }}"
+            volumes:
+              - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'PROJECT') }}:/{{ lookup('env', 'PROJECT') }}"
+            command: "sh /{{ lookup('env', 'PROJECT')}}/startup.sh"

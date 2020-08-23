@@ -1,0 +1,38 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200320
+# @UPDATE: 20200405
+
+# Arguments
+ARG PYTHON=3.8.2
+ARG ALPINE=3.11
+ARG TAG=${PYTHON}-alpine${ALPINE}
+
+# Base image
+FROM python:${TAG}
+
+# Labels
+# Maintainer
+LABEL maintainer="imyme6yo"
+LABEL email="imyme6yo@gmail.com"
+# Service
+LABEL Name=broccoli-book
+LABEL Version=0.0.1
+
+# Arguments
+ARG PROJECT=myproject
+ARG REQUIREMENT=requirements.txt
+
+# Envs
+ENV PROJECT=${PROJECT}
+ENV CONTAINER=${PROJECT}
+ENV REQUIREMENT=${REQUIREMENT}
+
+# Install Alpine Packages
+RUN apk update && apk upgrade
+RUN pip install --upgrade pip
+
+# Create Project by Default Settings
+RUN mkdir ${PROJECT}
+WORKDIR ${PROJECT}
+COPY . .
+RUN pip install -r requirements.txt
