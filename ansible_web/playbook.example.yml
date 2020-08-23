@@ -1,0 +1,54 @@
+# @AUTHOR: imyme6yo "imyme6yo@gmail.com"
+# @DRAFT: 20200824
+---
+  - name: start services
+    hosts: 127.0.0.1
+    tasks:
+      - name: create network
+        docker_network:
+          state: present
+          name: "{{ lookup('env', 'PROJECT_NETWORK') }}"
+          attachable: yes
+      - name: remove docker container, myproject-web
+        docker_container: 
+          name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
+          state: absent
+      - name: remove docker image, myproject-web:dev
+        docker_image:
+          state: absent
+          name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
+          tag: "{{ lookup('env', 'IMAGE_TAG') }}"
+      - name: build docker image, myproject-web:dev
+        docker_image:
+          state: present
+            name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
+            tag: "{{ lookup('env', 'IMAGE_TAG') }}"
+            build:
+              path: "./{{ lookup('env', 'WEB_SERVICE') }}"
+              dockerfile: Dockerfile.dev
+              args:
+                DEFUG: "{{ lookup('env', 'DEBUG') }}"
+                PROJECT: "{{ lookup('env', 'PROJECT') }}"
+                SERVICE: "{{ lookup('env', 'WEB_SERVICE') }}"
+                IMAGE_TAG: "{{ lookup('env', 'IMAGE_TAG') }}"
+                PORT: "{{ lookup('env', 'WEB_CONTAINER_PORT') }}"
+            source: build
+      - name: run docker container, myproject-web
+        docker_container:
+          name: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}"
+          state: started
+          recreate: yes
+          detach: yes
+          interactive: yes
+          # auto_remove: yes
+          image: "{{ lookup('env', 'PROJECT') }}-{{ lookup('env', 'WEB_SERVICE') }}:{{ lookup('env', 'IMAGE_TAG') }}"
+          # exposed_ports:
+          #   - "{{ lookup('env', 'WEB_PORT') }}"
+          networks:
+            - name: "{{ lookup('env', 'PROJECT_NETWORK') }}"
+          ports:
+            - "{{ lookup('env', 'WEB_PORT') }}:{{ lookup('env', 'WEB_CONTAINER_PORT') }}"
+            - "{{ lookup('env', 'WEB_STORYBOOK_PORT') }}:{{ lookup('env', 'WEB_STORYBOOK_CONTAINER_PORT') }}"
+          volumes:
+            - "{{ lookup('env', 'CONTEXT') }}/{{ lookup('env', 'WEB_SERVICE') }}:/{{ lookup('env', 'WEB_SERVICE') }}"
+          command: "sh /{{ lookup('env', 'WEB_SERVICE') }}/dev.sh"

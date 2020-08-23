@@ -14,7 +14,7 @@ POSTGRES_USER="admin"
 POSTGRES_PASSWORD="password"
 POSTGRES_DB=${PROJECT}
 
-# Page service environment variables
+# APP service environment variables
 MYAPP_SERVICE="myapp"
 MYAPP_PORT=9200
 MYAPP_CONTAINER_PORT=3000
@@ -23,6 +23,8 @@ MYAPP_CONTAINER_PORT=3000
 WEB_SERVICE="web"
 WEB_PORT=9201
 WEB_CONTAINER_PORT=8080
+WEB_STORYBOOK_PORT=9114
+WEB_STORYBOOK_CONTAINER_PORT=6006
 
 # Ansible environment varialbes
 # Set docker container name and image tag
@@ -53,6 +55,8 @@ docker build --force-rm \
   --build-arg WEB_SERVICE=$WEB_SERVICE \
   --build-arg WEB_PORT=$WEB_PORT \
   --build-arg WEB_CONTAINER_PORT=$WEB_CONTAINER_PORT \
+  --build-arg WEB_STORYBOOK_PORT=$WEB_STORYBOOK_PORT \
+  --build-arg WEB_STORYBOOK_CONTAINER_PORT=$WEB_STORYBOOK_CONTAINER_PORT \
   -t $IMAGE -f Dockerfile.ansible .
 
 # run docker container

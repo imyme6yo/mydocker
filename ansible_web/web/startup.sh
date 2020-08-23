@@ -1,15 +1,18 @@
 #!/bin/sh
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20200801
-# @UPDATE: 20200803
+# @UPDATE: 20200824
 npx degit sveltejs/template $SERVICE
 cd $SERVICE
 npm install
+# npm install svelte-spa-router
+# npm install svelte-file-dropzone
 npm install --save-dev autoprefixer
 npm install --save-dev @fullhuman/postcss-purgecss 
 npm install --save-dev postcss postcss-load-config postcss-import postcss-nested
 npm install --save-dev svelte-preprocess 
 npm install --save-dev tailwindcss
+npm install --save-dev axios
 npx tailwind init
 
 cp ../tailwindcss/postcss.config.js ./postcss.config.js
