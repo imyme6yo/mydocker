@@ -7,4 +7,4 @@ if [[ -z $DOCKER_REPO_PORT ]] ; then
     DOCKER_REPO_PORT=7788
 fi
 
-docker run -dit --name docker-registry -p ${DOCKER_REPO_PORT}:${DOCKER_REPO_PORT} registry
+docker run -dit --name docker-registry -p ${DOCKER_REPO_PORT}:5000 registry
