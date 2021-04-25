@@ -28,8 +28,8 @@ IMAGE_TAG="dev"
 SERVICE="myapp"
 
 # Database
-DATABASE_ENGINE=13.2-alpine
-DATABASE_PATH="/usr/local/opt/${PROJECT}/data/${SERVICE}"
+DATABASE_ENGINE=postgres:13.2-alpine
+DATABASE_PATH="/var/lib/postgresql/data"
 DATABASE_HOST="$PROJECT-$SERVICE-db"
 DATABASE_PORT="5432"
 DATABASE_CONTAINER_PORT="5432"
@@ -37,7 +37,7 @@ DATABASE_USER="admin"
 DATABASE_PASSWORD="password"
 DATABASE_DB=${SERVICE}
 
-DATABASE_GUI=5.1
+DATABASE_GUI=dpage/pgadmin4:5.1
 DATABASE_GUI_HOST="$PROJECT-pgadmin"
 DATABASE_GUI_PORT="12111"
 DATABASE_GUI_CONTAINER_PORT="80"
@@ -58,9 +58,9 @@ docker run --restart=unless-stopped -d \
   -e POSTGRES_DB=${DATABASE_DB} \
   -e POSTGRES_USER=${DATABASE_USER} \
   -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} \
-  -v ${DATABASE_PATH}:/var/lib/postgresql/data \
+  -v /usr/local/opt/${PROJECT}/data/${SERVICE}:${DATABASE_PATH} \
   --network ${PROJECT_NETWORK} \
-  --name ${DATABASE_HOST} postgres:${DATABASE_ENGINE}
+  --name ${DATABASE_HOST} ${DATABASE_ENGINE}
 
 
 # run docker pgadmin container, project-pg-admin
@@ -69,4 +69,4 @@ docker run -d \
   -e PGADMIN_DEFAULT_PASSWORD=${DATABASE_GUI_PASSWORD} \
   -p ${DATABASE_GUI_PORT}:${DATABASE_GUI_CONTAINER_PORT} \
   --network ${PROJECT_NETWORK} \
-  --name ${DATABASE_GUI_HOST} dpage/pgadmin4:${DATABASE_GUI}
+  --name ${DATABASE_GUI_HOST} ${DATABASE_GUI}
