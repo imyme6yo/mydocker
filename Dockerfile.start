@@ -1,11 +1,12 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20210424
+# @UPDATE: 20210519
 ARG PYTHON=3.8
 ARG ALPINE=3.10
 ARG TAG=python${PYTHON}-alpine${ALPINE}
 FROM tiangolo/uvicorn-gunicorn-fastapi:${TAG}
 
-ARG MODE='DEV'
+ARG MODE=DEV
 ARG DEBUG='true'
 ARG IP_MAIN=127.0.0.1
 ARG IP_DEV=localhost

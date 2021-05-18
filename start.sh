@@ -54,6 +54,7 @@ docker rm ${SERVICE_CONTAINER}
 # remove docker image
 docker rmi ${IMAGE}
 
+docker network create ${PROJECT_NETWORK}
 
 # create docker network
 docker build --force-rm \
