@@ -1,25 +1,38 @@
 # @AUTHOR: imyme6yo "imyme6yo@gmail.com"
 # @DRAFT: 20210424
+# @UPDATE: 20210521
+# Arguments
 ARG PYTHON=3.8
 ARG ALPINE=3.10
 ARG TAG=python${PYTHON}-alpine${ALPINE}
+
+# Base image
 FROM tiangolo/uvicorn-gunicorn-fastapi:${TAG}
 
-ARG MODE='DEV'
+# Labels
+# Maintainer
+LABEL maintainer="imyme6yo"
+LABEL email="imyme6yo@gmail.com"
+# Service
+LABEL project=myproj
+LABEL name=myproj-myapp
+LABEL version=0.1.1
+
+ARG MODE=DEV
 ARG DEBUG='true'
 ARG IP_MAIN=127.0.0.1
 ARG IP_DEV=localhost
-ARG PROJECT=devstory
+ARG PROJECT=myproj
 ARG PROJECT_NETWORK=${PROJECT}-network
 ARG IMAGE_TAG=dev
-ARG SERVICE=devstory
+ARG SERVICE=myapp
 ARG SERVICE_PORT=10111
 ARG SERVICE_CONTAINER_PORT=3000
 ARG DATABASE_HOST=${PROJECT}-${SERVICE}-db
 ARG DATABASE_PORT=5432
 ARG DATABASE_USER=admin
 ARG DATABASE_PASSWORD=password
-ARG DATABASE_DB=devstory
+ARG DATABASE_DB=myapp
 
 # Envs
 ENV MODE=${MODE}
