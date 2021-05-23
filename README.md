@@ -4,7 +4,8 @@
 @UPDATE: 20200405
 -->
 
-
+### Template Usage
+> curl -LJ https://github.com/imyme6yo/mytemplate/tarball/@django-postgres -o django-postgres.tar.gz
 
 ### Git Installation
 
